@@ -1,6 +1,6 @@
 export class CreateUserDTO {
-  email: string;
-  hashedPassword: string;
-  name: string;
-  surname: string;
+  public email: string;
+  public hashedPassword: string;
+  public name: string;
+  public surname: string;
 }
