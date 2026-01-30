@@ -8,11 +8,7 @@ import { HelpersModule } from './helpers/helpers.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: [
-        `.env.${process.env.NODE_ENV || 'development'}`,
-        '.env.local',
-        '.env',
-      ],
+      envFilePath: '.env.development',
     }),
     DatabaseModule,
     UsersModule,

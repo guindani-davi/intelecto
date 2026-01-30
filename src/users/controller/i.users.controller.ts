@@ -1,0 +1,27 @@
+import type { Response } from 'express';
+import {
+  RequestGetUserByEmailDTO,
+  RequestGetUserByIdDTO,
+  ResponseGetUserDTO,
+} from 'src/users/dtos/get-user.dto';
+import {
+  RequestCreateUserDTO,
+  ResponseCreateUserDTO,
+} from 'src/users/dtos/create-user.dto';
+
+export abstract class IUsersController {
+  public abstract createUser(
+    body: RequestCreateUserDTO,
+    response: Response<ResponseCreateUserDTO | Record<string, never>>,
+  ): Promise<void>;
+
+  public abstract getUserById(
+    params: RequestGetUserByIdDTO,
+    response: Response<ResponseGetUserDTO | Record<string, never>>,
+  ): Promise<void>;
+
+  public abstract getUserByEmail(
+    params: RequestGetUserByEmailDTO,
+    response: Response<ResponseGetUserDTO | Record<string, never>>,
+  ): Promise<void>;
+}

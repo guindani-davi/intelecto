@@ -11,7 +11,7 @@ import {
   RequestGetUserByIdDTO,
   ResponseGetUserDTO,
 } from 'src/users/dtos/get-user.dto';
-import { CreateUserRepositoryDTO } from 'src/users/dtos/create-user-repository.dto';
+import { CreateUserRepositoryDTO } from 'src/users/dtos/create-user.dto';
 import { IUsersRepository } from 'src/users/repository/i.users.repository';
 import { IHelpersService } from 'src/helpers/service/i.helpers.service';
 

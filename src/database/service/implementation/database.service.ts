@@ -1,13 +1,13 @@
-import { ConfigService } from '@nestjs/config';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { IDatabaseService } from 'src/database/service/i.database.service';
 
 @Injectable()
 export class DatabaseService extends IDatabaseService {
-  public constructor() {
+  public constructor(configService: ConfigService) {
     super(
-      process.env.SUPABASE_URL as string,
-      process.env.SUPABASE_SECRET_KEY as string,
+      configService.getOrThrow<string>('SUPABASE_URL'),
+      configService.getOrThrow<string>('SUPABASE_SECRET_KEY'),
     );
   }
 }

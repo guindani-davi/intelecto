@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { IHelpersService } from '../i.helpers.service';
+import { NodeEnvironment } from 'src/helpers/enums/environment.enum';
+import { IHelpersService } from 'src/helpers/service/i.helpers.service';
 
 @Injectable()
-export class HelpersService extends IHelpersService {
+export class HelpersService implements IHelpersService {
   private readonly configService: ConfigService;
 
   public constructor(configService: ConfigService) {
-    super();
     this.configService = configService;
   }
 
@@ -22,7 +22,7 @@ export class HelpersService extends IHelpersService {
   }
 
   public isProduction(): boolean {
-    const nodeEnv = this.configService.get<string>('NODE_ENV');
-    return nodeEnv === 'production';
+    const nodeEnv = this.configService.getOrThrow<NodeEnvironment>('NODE_ENV');
+    return nodeEnv === NodeEnvironment.PRODUCTION;
   }
 }

@@ -14,10 +14,14 @@ import {
   RequestGetUserByIdDTO,
   ResponseGetUserDTO,
 } from 'src/users/dtos/get-user.dto';
-import { RequestCreateUserDTO } from 'src/users/dtos/create-user.dto';
+import {
+  RequestCreateUserDTO,
+  ResponseCreateUserDTO,
+} from 'src/users/dtos/create-user.dto';
+import { IUsersController } from 'src/users/controller/i.users.controller';
 
 @Controller('users')
-export class UsersController {
+export class UsersController implements IUsersController {
   private readonly userService: IUsersService;
 
   public constructor(userService: IUsersService) {
@@ -27,12 +31,12 @@ export class UsersController {
   @Post()
   async createUser(
     @Body() body: RequestCreateUserDTO,
-    @Res() response: Response,
+    @Res() response: Response<ResponseCreateUserDTO | Record<string, never>>,
   ): Promise<void> {
     const createdUser = await this.userService.createUser(body);
 
     if (!createdUser) {
-      response.status(HttpStatus.CONFLICT).json();
+      response.status(HttpStatus.CONFLICT).json({});
       return;
     }
 
@@ -43,12 +47,12 @@ export class UsersController {
   @Get('id/:id')
   async getUserById(
     @Param() params: RequestGetUserByIdDTO,
-    @Res() response: Response,
+    @Res() response: Response<ResponseGetUserDTO | Record<string, never>>,
   ): Promise<void> {
     const returnedUser = await this.userService.getUserById(params);
 
     if (!returnedUser) {
-      response.status(HttpStatus.NOT_FOUND).json();
+      response.status(HttpStatus.NOT_FOUND).json({});
       return;
     }
 
@@ -59,13 +63,12 @@ export class UsersController {
   @Get('email/:email')
   async getUserByEmail(
     @Param() params: RequestGetUserByEmailDTO,
-    @Res() response: Response,
+    @Res() response: Response<ResponseGetUserDTO | Record<string, never>>,
   ): Promise<void> {
     const returnedUser = await this.userService.getUserByEmail(params);
-    console.log(returnedUser);
 
     if (!returnedUser) {
-      response.status(HttpStatus.NOT_FOUND).json();
+      response.status(HttpStatus.NOT_FOUND).json({});
       return;
     }
 

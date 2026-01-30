@@ -43,3 +43,21 @@ export class ResponseCreateUserDTO {
   @IsNotEmpty()
   public updatedAt: Date | null;
 }
+
+export class CreateUserRepositoryDTO {
+  @IsEmail()
+  @IsNotEmpty()
+  public email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  public hashedPassword: string;
+
+  @IsString()
+  @IsNotEmpty()
+  public name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  public surname: string;
+}

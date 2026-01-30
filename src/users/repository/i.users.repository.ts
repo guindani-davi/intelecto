@@ -1,4 +1,4 @@
-import { CreateUserRepositoryDTO } from 'src/users/dtos/create-user-repository.dto';
+import { CreateUserRepositoryDTO } from 'src/users/dtos/create-user.dto';
 import { Database } from 'src/database/types';
 import {
   RequestGetUserByEmailDTO,
