@@ -1,11 +1,20 @@
-import { Controller, Get, Param, Res, HttpStatus, Post } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Res,
+  HttpStatus,
+  Post,
+  Body,
+} from '@nestjs/common';
+import type { Response } from 'express';
 import { IUsersService } from 'src/users/service/i.users.service';
 import {
   RequestGetUserByEmailDTO,
   RequestGetUserByIdDTO,
   ResponseGetUserDTO,
-} from '../dtos/get-user.dto';
-import type { Response } from 'express';
+} from 'src/users/dtos/get-user.dto';
+import { RequestCreateUserDTO } from 'src/users/dtos/create-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -16,61 +25,51 @@ export class UsersController {
   }
 
   @Post()
-  async createUser(@Body() createUserDt: Response): Promise<void> {
-    // Implementation for creating a user would go here
-    res.status(HttpStatus.NOT_IMPLEMENTED).send();
+  async createUser(
+    @Body() body: RequestCreateUserDTO,
+    @Res() response: Response,
+  ): Promise<void> {
+    const createdUser = await this.userService.createUser(body);
+
+    if (!createdUser) {
+      response.status(HttpStatus.CONFLICT).json();
+      return;
+    }
+
+    response.status(HttpStatus.CREATED).json(createdUser);
     return;
   }
 
-  @Get(':id')
+  @Get('id/:id')
   async getUserById(
-    @Param('id') id: string,
-    @Res() res: Response,
+    @Param() params: RequestGetUserByIdDTO,
+    @Res() response: Response,
   ): Promise<void> {
-    const data = new RequestGetUserByIdDTO(id);
-    const returnedUser = await this.userService.getUserById(data);
+    const returnedUser = await this.userService.getUserById(params);
 
     if (!returnedUser) {
-      res.status(HttpStatus.NOT_FOUND).send();
+      response.status(HttpStatus.NOT_FOUND).json();
       return;
     }
 
-    const responseDto = new ResponseGetUserDTO(
-      returnedUser.id,
-      returnedUser.email,
-      returnedUser.name,
-      returnedUser.surname,
-      returnedUser.createdAt,
-      returnedUser.updatedAt,
-    );
-
-    res.status(HttpStatus.OK).json(responseDto);
+    response.status(HttpStatus.OK).json(returnedUser);
     return;
   }
 
-  @Get(':email')
+  @Get('email/:email')
   async getUserByEmail(
-    @Param('email') email: string,
-    @Res() res: Response,
+    @Param() params: RequestGetUserByEmailDTO,
+    @Res() response: Response,
   ): Promise<void> {
-    const data = new RequestGetUserByEmailDTO(email);
-    const returnedUser = await this.userService.getUserByEmail(data);
+    const returnedUser = await this.userService.getUserByEmail(params);
+    console.log(returnedUser);
 
     if (!returnedUser) {
-      res.status(HttpStatus.NOT_FOUND).send();
+      response.status(HttpStatus.NOT_FOUND).json();
       return;
     }
 
-    const responseDto = new ResponseGetUserDTO(
-      returnedUser.id,
-      returnedUser.email,
-      returnedUser.name,
-      returnedUser.surname,
-      returnedUser.createdAt,
-      returnedUser.updatedAt,
-    );
-
-    res.status(HttpStatus.OK).json(responseDto);
+    response.status(HttpStatus.OK).json(returnedUser);
     return;
   }
 }

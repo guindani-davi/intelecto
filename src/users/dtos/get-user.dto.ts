@@ -1,40 +1,38 @@
-export class RequestGetUserByIdDTO {
-  public id: string;
+import { IsDate, IsEmail, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
-  public constructor(id: string) {
-    this.id = id;
-  }
+export class RequestGetUserByIdDTO {
+  @IsUUID()
+  @IsNotEmpty()
+  public id: string;
 }
 
 export class RequestGetUserByEmailDTO {
+  @IsEmail()
+  @IsNotEmpty()
   public email: string;
-
-  public constructor(email: string) {
-    this.email = email;
-  }
 }
 
 export class ResponseGetUserDTO {
+  @IsUUID()
+  @IsNotEmpty()
   public id: string;
-  public email: string;
-  public name: string;
-  public surname: string;
-  public createdAt: Date;
-  public updatedAt: Date | null;
 
-  public constructor(
-    id: string,
-    email: string,
-    name: string,
-    surname: string,
-    createdAt: Date,
-    updatedAt: Date | null,
-  ) {
-    this.id = id;
-    this.email = email;
-    this.name = name;
-    this.surname = surname;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
-  }
+  @IsEmail()
+  @IsNotEmpty()
+  public email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  public name: string;
+
+  @IsString()
+  @IsNotEmpty()
+  public surname: string;
+
+  @IsDate()
+  @IsNotEmpty()
+  public createdAt: Date;
+
+  @IsDate()
+  public updatedAt: Date | null;
 }

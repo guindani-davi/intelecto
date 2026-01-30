@@ -1,4 +1,7 @@
-import { CreateUserDTO } from 'src/users/dtos/create-user.dto';
+import {
+  RequestCreateUserDTO,
+  ResponseCreateUserDTO,
+} from 'src/users/dtos/create-user.dto';
 import {
   RequestGetUserByEmailDTO,
   RequestGetUserByIdDTO,
@@ -6,11 +9,13 @@ import {
 } from 'src/users/dtos/get-user.dto';
 
 export abstract class IUsersService {
-  abstract createUser(data: CreateUserDTO): Promise<ResponseGetUserDTO | null>;
-  abstract getUserById(
-    data: RequestGetUserByIdDTO,
+  public abstract createUser(
+    dto: RequestCreateUserDTO,
+  ): Promise<ResponseCreateUserDTO | null>;
+  public abstract getUserById(
+    dto: RequestGetUserByIdDTO,
   ): Promise<ResponseGetUserDTO | null>;
-  abstract getUserByEmail(
-    data: RequestGetUserByEmailDTO,
+  public abstract getUserByEmail(
+    dto: RequestGetUserByEmailDTO,
   ): Promise<ResponseGetUserDTO | null>;
 }

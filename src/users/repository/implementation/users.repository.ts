@@ -1,20 +1,23 @@
-/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 import { Injectable } from '@nestjs/common';
 import { IUsersRepository } from 'src/users/repository/i.users.repository';
-import { CreateUserDTO } from 'src/users/dtos/create-user.dto';
+import { CreateUserRepositoryDTO } from 'src/users/dtos/create-user-repository.dto';
 import { Database } from 'src/database/types';
-import { DatabaseService } from 'src/database/service/database.service';
+import { IDatabaseService } from 'src/database/service/i.database.service';
+import {
+  RequestGetUserByEmailDTO,
+  RequestGetUserByIdDTO,
+} from 'src/users/dtos/get-user.dto';
 
 @Injectable()
 export class UsersRepository implements IUsersRepository {
-  private databaseService: DatabaseService;
+  private readonly databaseService: IDatabaseService;
 
-  public constructor(databaseService: DatabaseService) {
+  public constructor(databaseService: IDatabaseService) {
     this.databaseService = databaseService;
   }
 
   async createUser(
-    dto: CreateUserDTO,
+    dto: CreateUserRepositoryDTO,
   ): Promise<Database['public']['Tables']['users']['Row'] | null> {
     const createdUser = await this.databaseService
       .from('users')
@@ -35,12 +38,12 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async getUserById(
-    id: string,
+    dto: RequestGetUserByIdDTO,
   ): Promise<Database['public']['Tables']['users']['Row'] | null> {
     const returnedUser = await this.databaseService
       .from('users')
       .select('*')
-      .eq('id', id)
+      .eq('id', dto.id)
       .single();
 
     if (returnedUser.error) {
@@ -51,12 +54,12 @@ export class UsersRepository implements IUsersRepository {
   }
 
   async getUserByEmail(
-    email: string,
+    dto: RequestGetUserByEmailDTO,
   ): Promise<Database['public']['Tables']['users']['Row'] | null> {
     const returnedUser = await this.databaseService
       .from('users')
       .select('*')
-      .eq('email', email)
+      .eq('email', dto.email)
       .single();
 
     if (returnedUser.error) {

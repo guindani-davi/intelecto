@@ -1,15 +1,18 @@
-/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
-import { CreateUserDTO } from 'src/users/dtos/create-user.dto';
+import { CreateUserRepositoryDTO } from 'src/users/dtos/create-user-repository.dto';
 import { Database } from 'src/database/types';
+import {
+  RequestGetUserByEmailDTO,
+  RequestGetUserByIdDTO,
+} from 'src/users/dtos/get-user.dto';
 
 export abstract class IUsersRepository {
-  abstract createUser(
-    data: CreateUserDTO,
+  public abstract createUser(
+    dto: CreateUserRepositoryDTO,
   ): Promise<Database['public']['Tables']['users']['Row'] | null>;
-  abstract getUserById(
-    id: string,
+  public abstract getUserById(
+    dto: RequestGetUserByIdDTO,
   ): Promise<Database['public']['Tables']['users']['Row'] | null>;
-  abstract getUserByEmail(
-    email: string,
+  public abstract getUserByEmail(
+    dto: RequestGetUserByEmailDTO,
   ): Promise<Database['public']['Tables']['users']['Row'] | null>;
 }
