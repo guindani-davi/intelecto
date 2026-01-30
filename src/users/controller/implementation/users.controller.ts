@@ -1,24 +1,24 @@
 import {
+  Body,
   Controller,
   Get,
-  Param,
-  Res,
   HttpStatus,
+  Param,
   Post,
-  Body,
+  Res,
 } from '@nestjs/common';
 import type { Response } from 'express';
-import { IUsersService } from 'src/users/service/i.users.service';
+import { IUsersController } from 'src/users/controller/i.users.controller';
+import {
+  RequestCreateUserDTO,
+  ResponseCreateUserDTO,
+} from 'src/users/dtos/create-user.dto';
 import {
   RequestGetUserByEmailDTO,
   RequestGetUserByIdDTO,
   ResponseGetUserDTO,
 } from 'src/users/dtos/get-user.dto';
-import {
-  RequestCreateUserDTO,
-  ResponseCreateUserDTO,
-} from 'src/users/dtos/create-user.dto';
-import { IUsersController } from 'src/users/controller/i.users.controller';
+import { IUsersService } from 'src/users/service/i.users.service';
 
 @Controller('users')
 export class UsersController implements IUsersController {

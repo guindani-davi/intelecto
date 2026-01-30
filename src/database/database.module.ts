@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { DatabaseService } from 'src/database/service/implementation/database.service';
 import { IDatabaseService } from 'src/database/service/i.database.service';
+import { DatabaseService } from 'src/database/service/implementation/database.service';
 
 @Module({
   exports: [IDatabaseService],

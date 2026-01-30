@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { HelpersService } from 'src/helpers/service/implementation/helpers.service';
 import { IHelpersService } from 'src/helpers/service/i.helpers.service';
+import { HelpersService } from 'src/helpers/service/implementation/helpers.service';
 
 @Module({
   exports: [IHelpersService],

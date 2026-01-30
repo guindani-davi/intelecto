@@ -1,13 +1,13 @@
 import type { Response } from 'express';
 import {
+  RequestCreateUserDTO,
+  ResponseCreateUserDTO,
+} from 'src/users/dtos/create-user.dto';
+import {
   RequestGetUserByEmailDTO,
   RequestGetUserByIdDTO,
   ResponseGetUserDTO,
 } from 'src/users/dtos/get-user.dto';
-import {
-  RequestCreateUserDTO,
-  ResponseCreateUserDTO,
-} from 'src/users/dtos/create-user.dto';
 
 export abstract class IUsersController {
   public abstract createUser(

@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
-import { IUsersService } from 'src/users/service/i.users.service';
+import { IHelpersService } from 'src/helpers/service/i.helpers.service';
 import {
+  CreateUserRepositoryDTO,
   RequestCreateUserDTO,
   ResponseCreateUserDTO,
 } from 'src/users/dtos/create-user.dto';
@@ -11,9 +12,8 @@ import {
   RequestGetUserByIdDTO,
   ResponseGetUserDTO,
 } from 'src/users/dtos/get-user.dto';
-import { CreateUserRepositoryDTO } from 'src/users/dtos/create-user.dto';
 import { IUsersRepository } from 'src/users/repository/i.users.repository';
-import { IHelpersService } from 'src/helpers/service/i.helpers.service';
+import { IUsersService } from 'src/users/service/i.users.service';
 
 @Injectable()
 export class UsersService implements IUsersService {

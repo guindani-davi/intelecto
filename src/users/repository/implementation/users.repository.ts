@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { IUsersRepository } from 'src/users/repository/i.users.repository';
-import { CreateUserRepositoryDTO } from 'src/users/dtos/create-user.dto';
-import { Database } from 'src/database/types';
 import { IDatabaseService } from 'src/database/service/i.database.service';
+import { Database } from 'src/database/types';
+import { CreateUserRepositoryDTO } from 'src/users/dtos/create-user.dto';
 import {
   RequestGetUserByEmailDTO,
   RequestGetUserByIdDTO,
 } from 'src/users/dtos/get-user.dto';
+import { IUsersRepository } from 'src/users/repository/i.users.repository';
 
 @Injectable()
 export class UsersRepository implements IUsersRepository {
